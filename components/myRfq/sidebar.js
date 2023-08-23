@@ -7,11 +7,11 @@ import SideCard from "./sideCard";
 import { SideBar } from "@/useStore/sideBar";
 
 const Inquiries = [
-  { label: "All", value: "allInquiries", link: "" },
+  { label: "All", value: "allInquiries", link: "/myRfq/inquiryList" },
   { label: "Starred", value: "starredInquiries", link: "" },
 ];
 const Rfqs = [
-  { label: "All", value: "allRfqs", link: "" },
+  { label: "All", value: "allRfqs", link: "/myRfq/rfqList" },
   { label: "Starred", value: "starredRfqs", link: "" },
 ];
 
@@ -36,12 +36,12 @@ const Settings = [
 const Sidebar = () => {
   const [name, setName] = useState("");
   const [linkActive, titleActive, updateLinkActive, updateTitleActive] =
-  SideBar((store) => [
-    store.linkActive,
-    store.titleActive,
-    store.updateLinkActive,
-    store.updateTitleActive,
-  ]);
+    SideBar((store) => [
+      store.linkActive,
+      store.titleActive,
+      store.updateLinkActive,
+      store.updateTitleActive,
+    ]);
   const updateSubName = (value) => {
     setSubName(value);
   };
@@ -51,33 +51,34 @@ const Sidebar = () => {
     <div className="h-[640px]  bg-white  py-4 overflow-y-scroll w-1/6 scroll-smooth">
       <div className="flex flex-col space-y-2">
         <>
-          <div
-            className={`flex space-x-2 mx-4  px-2 cursor-pointer  py-2 rounded-xl items-center ${
-              linkActive == "home"
-                ? "bg-rose-600 text-white"
-                : "bg-transparent hover:bg-gray-100 text-gray-800"
-            } `}
-            onClick={() => {
-              updateLinkActive("home")
-              updateTitleActive("home")
-            }}
-          >
-            <AiOutlineHome size={20} className={`font-bold`} />
-            <p
-              className={`font-semibold text-gray-800 text-lg ${
-                linkActive == "home" ? " text-white" : " text-gray-800"
-              }  `}
+          <Link href={"/myRfq/home"}>
+            <div
+              className={`flex space-x-2 mx-4  px-2 cursor-pointer  py-2 rounded-xl items-center ${
+                linkActive == "home"
+                  ? "bg-rose-600 text-white"
+                  : "bg-transparent hover:bg-gray-100 text-gray-800"
+              } `}
+              onClick={() => {
+                updateLinkActive("home");
+                updateTitleActive("home");
+              }}
             >
-              Home
-            </p>
-          </div>
+              <AiOutlineHome size={20} className={`font-bold`} />
+              <p
+                className={`font-semibold text-gray-800 text-lg ${
+                  linkActive == "home" ? " text-white" : " text-gray-800"
+                }  `}
+              >
+                Home
+              </p>
+            </div>
+          </Link>
         </>
         <SideCard
           head={"Inquiries"}
           array={Inquiries}
           updateSubName={updateSubName}
           subName={subName}
-    
         />
         <SideCard
           head={"RFQs"}

@@ -17,7 +17,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { User } from "@/useStore/user";
 
-const UserProfile = ({ user, phoneNumber }) => {
+const Home = ({ user, phoneNumber }) => {
   const [updatePhoneNumber,updateUserDetails,updateUserId] = User((store) => [store.updatePhoneNumber,store.updateUserDetails,store.updateUserId]);
 
   const [profileUser, setProfileUser] = useState({
@@ -121,4 +121,4 @@ const UserProfile = ({ user, phoneNumber }) => {
   );
 };
 
-export default UserProfile;
+export default Home;

@@ -31,7 +31,7 @@ const RequestDetails = ({ rfqData }) => {
               Category
             </p>
             <p className="text-gray-500 font-normal text-base">
-              {rfqData.productCategory[2]}
+              {rfqData?.productCategory && rfqData?.productCategory[2]}
             </p>
           </div>
           <div className="flex  space-x-16  items-start">
@@ -63,7 +63,7 @@ const RequestDetails = ({ rfqData }) => {
               Quantity
             </p>
             <p className="text-gray-500 font-normal text-base">
-              {rfqData.order.orderQuantity}&nbsp; {rfqData.order.orderType}
+              {rfqData.order?.orderQuantity}&nbsp; {rfqData.order?.orderType}
             </p>
           </div>
           <div className="flex  space-x-16  items-center">
@@ -71,7 +71,7 @@ const RequestDetails = ({ rfqData }) => {
               Unit Price
             </p>
             <p className="text-gray-500 font-normal text-base">
-              {rfqData.unitPrice.unitType} &nbsp;{rfqData.unitPrice.units}
+              {rfqData.unitPrice?.unitType} &nbsp;{rfqData.unitPrice?.units}
             </p>
           </div>
           <div className="flex  space-x-16  items-center">
@@ -79,7 +79,7 @@ const RequestDetails = ({ rfqData }) => {
               Shipment Terms
             </p>
             <p className="text-gray-500 font-normal text-base">
-              {rfqData.requirements.shipmentTerms}
+              {rfqData.requirements?.shipmentTerms}
             </p>
           </div>
           <div className="flex  space-x-16  items-center">
@@ -87,7 +87,7 @@ const RequestDetails = ({ rfqData }) => {
               Destination Port
             </p>
             <p className="text-gray-500 font-normal text-base">
-              {rfqData.requirements.destinationPort}
+              {rfqData.requirements?.destinationPort}
             </p>
           </div>
           <div className="flex  space-x-16  items-center">
@@ -95,7 +95,7 @@ const RequestDetails = ({ rfqData }) => {
               Payment Method
             </p>
             <p className="text-gray-500 font-normal text-base">
-              {rfqData.requirements.paymentMethod}
+              {rfqData.requirements?.paymentMethod}
             </p>
           </div>
           <div className="flex  space-x-16  items-center">
@@ -103,7 +103,7 @@ const RequestDetails = ({ rfqData }) => {
               Certification(s)
             </p>
             <p className="text-gray-500 font-normal text-base">
-              {rfqData.requirements.company}
+              {rfqData.requirements?.company}
             </p>
           </div>
         </div>

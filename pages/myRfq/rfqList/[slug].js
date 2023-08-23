@@ -29,6 +29,8 @@ const Post = () => {
   };
 
   const SingleRfq = async () => {
+    console.log('slug',router.query.slug);
+    
     const data = await getRfq(router.query.slug);
     setRfqData({ ...data });
     console.log("hgsahgsxhgs", data);

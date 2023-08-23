@@ -1,11 +1,11 @@
-import RfqList from "@/components/myRfq/allRfqs";
+import AllRfqs from "@/components/myRfq/allRfqs";
 import Sidebar from "@/components/myRfq/sidebar";
 import { db } from "@/config/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import React, { useState } from "react";
 import { useEffect } from "react";
 
-const MyRfq = ({ user }) => {
+const RfqList = ({ user }) => {
   const rfqCollection = collection(db, "rfqs");
   const [rfqData, setRfqData] = useState([]);
   const getRfq = async (id) => {
@@ -38,10 +38,10 @@ const MyRfq = ({ user }) => {
     <div className="h-[640px] overflow-hidden">
       <div className="flex">
         <Sidebar />
-        <RfqList rfqData={rfqData} />
+        <AllRfqs rfqData={rfqData} />
       </div>
     </div>
   );
 };
 
-export default MyRfq;
+export default RfqList;
