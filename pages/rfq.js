@@ -3,11 +3,15 @@ import Product from "@/components/rfq/product";
 import Score from "@/components/rfq/score";
 import { db } from "@/config/firebase";
 import { useStore } from "@/useStore/details";
+import { SideBar } from "@/useStore/sideBar";
 import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
+import { useRouter } from "next/router";
 import React from "react";
 import { useEffect } from "react";
 
 const Rfq = ({ user, changeShowLogin }) => {
+  const [updateLinkActive] = SideBar((store)=>[store.updateLinkActive])
+
   const [
     productName,
     productCategory,
@@ -19,7 +23,8 @@ const Rfq = ({ user, changeShowLogin }) => {
     validTo,
     requirements,
     email,
-    progress
+    progress,
+    updateProgress
   ] = useStore((store) => [
     store.productName,
     store.productCategory,
@@ -31,9 +36,10 @@ const Rfq = ({ user, changeShowLogin }) => {
     store.validTo,
     store.requirements,
     store.email,
-    store.progress
+    store.progress,
+    store.updateProgress
   ]);
-
+const router = useRouter()
   const rfqCollection = collection(db, "rfqs");
   //  console.log('product category',attributes);
   // const updateUserRfq = async (id) => {
@@ -76,6 +82,10 @@ const Rfq = ({ user, changeShowLogin }) => {
             onClick={() => {
               !user && changeShowLogin(true)
               user && email!=0 && submitNewUser()
+               updateProgress()
+               updateLinkActive("rfqs")
+              user && router.push("/myRfq/rfqList")
+              
             }}
             // onClick={submitNewUser}
             className="mx-4 cursor-pointer mt-5 text-base w-fit font-semibold px-7 rounded-md text-white bg-gradient-to-l from-blue-400  to-blue-600 py-2"

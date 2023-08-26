@@ -9,12 +9,14 @@ const About = () => {
     updateDecreaseProgress,
     aboutProduct,
     scoreProduct,
+    updateProgress
   ] = useStore((store) => [
     store.updateAboutProduct,
     store.updateIncreaseProgress,
     store.updateDecreaseProgress,
     store.aboutProduct,
     store.scoreProduct,
+    store.updateProgress
   ]);
   const [i, setI] = useState(1);
 
@@ -35,14 +37,14 @@ const About = () => {
         rows={5}
         onBlur={() => {
           updateAboutProduct(about);
-          about?.length > 10
+          about?.length > 0
             ? (scoreProduct[2].score = true)
             : (scoreProduct[2].score = false);
           if (scoreProduct[2].score && i == 1) {
-            updateIncreaseProgress(about?.length > 10 ? 42 : 0);
+            updateIncreaseProgress(42);
             setI(2);
           }
-          if (!scoreProduct[2].score) {
+          if (!scoreProduct[2].score && i==2 ) {
             updateDecreaseProgress(42);
             setI(1);
           }

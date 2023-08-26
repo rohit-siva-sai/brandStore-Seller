@@ -4,11 +4,13 @@ import React from "react";
 import { useState } from "react";
 
 const Address = () => {
-  const [address, updateAddress] = User((store) => [
+  const [userAddress, updateAddress] = User((store) => [
     store.userAddress,
     store.updateAddress,
   ]);
-  const [add, setAdd] = useState(address);
+  console.log('address',userAddress);
+  
+  const [add, setAdd] = useState(userAddress);
   return (
     <div className="felx flex-col space-y-2">
       <div className="flex flex-col space-y-1 ">
@@ -17,10 +19,10 @@ const Address = () => {
         </label>
         <input
           type="text"
-          value={add.businnesAddress}
+          value={add.bussinessAddress}
           id="productName"
           onChange={(e) => {
-            setAdd((prev) => ({ ...prev, businnesAddress: e.target.value }));
+            setAdd((prev) => ({ ...prev, bussinessAddress: e.target.value }));
           }}
           onBlur={() => {
             updateAddress(add);

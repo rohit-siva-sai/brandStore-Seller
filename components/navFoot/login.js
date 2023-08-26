@@ -24,6 +24,9 @@ import { onCaptchaVerify } from "./captcha";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
 import { User } from "@/useStore/user";
+import Sellercategory from "./sellerCategory";
+import Category from "../rfq/productInfo/category";
+import { Seller } from "@/useStore/seller";
 
 const Login = ({
   changeShowLogin,
@@ -33,6 +36,7 @@ const Login = ({
   getPhoneNumber,
 }) => {
   const [updateUserId] = User((store) => [store.updateUserId]);
+  const [sellerCategory] = Seller((store)=>[store.sellerCategory])
 
   const [phoneNumber, setPhoneNumber] = useState(false);
   const [otp, setOtp] = useState("");
@@ -63,7 +67,6 @@ const Login = ({
     // setPersistence(getAuth(), browserLocalPersistence);
     if (!window.recaptchaVerifier) {
       window.recaptchaVerifier = new RecaptchaVerifier(
-       
         "recaptcha-container",
         {
           size: "invisible",
@@ -90,10 +93,12 @@ const Login = ({
 
   const onSignup = () => {
     if (
+      sellerCategory == null ||
       phoneNumber == " " ||
       phoneNumber.length != 13 ||
-      phoneNumber == undefined
+      phoneNumber == undefined 
     ) {
+      toast.error("Enter all the deatils")
       return setError("Enter valid Phone Number");
     }
     setLoading(true);
@@ -106,7 +111,7 @@ const Login = ({
     const appVerify = window.recaptchaVerifier;
     console.log("sgcshgcsahg");
     // const appVerifier = window.recaptchaVerifier;
-    
+
     signInWithPhoneNumber(getAuth(), phoneNumber, appVerify)
       .then((confirmationResult) => {
         // SMS sent. Prompt user to type the code from the message, then sign the
@@ -136,8 +141,8 @@ const Login = ({
       .confirm(otp)
       .then(async (res) => {
         console.log("sdcd", res);
-        handleUser(res.user);
-        updateUserId(res.user.uid)
+        handleUser(res.user)
+        updateUserId(res.user.uid);
         console.log("uxeuyvwedwveug", user);
 
         localStorage.setItem("userDetails", JSON.stringify(res.user));
@@ -154,7 +159,7 @@ const Login = ({
 
   return (
     <>
-      <Toaster toastOptions={{ duration: 4000 }} />
+      <Toaster toastOptions={{ duration: 1000 }} />
       <div className="w-screen h-screen fixed  z-50 bg-gray-800 opacity-50"></div>
       <div className="w-[700px] transition-all duration-200 h-[450px] rounded-lg pb-6 pt-4 bg-gray-100 fixed top-1/2 left-1/2 z-50 opacity-100 -translate-x-[50%] -translate-y-[50%] ">
         <div className="grid grid-cols-2 mx-6 ">
@@ -166,7 +171,7 @@ const Login = ({
           <div>
             <div
               onClick={() => {
-                changeShowLogin(false);
+                changeShowLogin(false)
               }}
               className="p-2 w-fit ml-auto mb-2 mr-4 cursor-pointer rounded hover:bg-blue-100"
             >
@@ -234,11 +239,14 @@ const Login = ({
                 </div>
               </div>
             ) : (
-              <div className="w-full h-[330px] flex flex-col items-center space-y-4 rounded-lg px-8 py-8 bg-white">
-                <p className="self-start font-semibold pl-2 text-gray-700  text-lg">
+              <div className="w-full h-[330px] flex flex-col items-center space-y-4  rounded-lg  py-4 bg-white">
+                <p className="self-start font-semibold px-8  text-gray-700  text-lg">
                   LogIn or SignUp
                 </p>
-                <div className="">
+                <div className="w-full pb-4">
+                <Sellercategory/>
+                </div>
+                <div className="mt-4">
                   <PhoneInput
                     placeholder="Enter phone number"
                     defaultCountry="IN"

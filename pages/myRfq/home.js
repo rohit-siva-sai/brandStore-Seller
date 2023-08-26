@@ -16,13 +16,70 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { User } from "@/useStore/user";
+import { Company } from "@/useStore/company";
+import { Drawer } from "antd";
+import SimpleSideBar from "@/components/myRfq/simpleSideBar";
+import { Seller } from "@/useStore/seller";
 
 const Home = ({ user, phoneNumber }) => {
-  const [updatePhoneNumber,updateUserDetails,updateUserId] = User((store) => [store.updatePhoneNumber,store.updateUserDetails,store.updateUserId]);
+  const [
+    updatePhoneNumber,
+    updateUserDetails,
+    userId,
+    updateUserId,
+    userAddress,
+    job,
+    companyWebsite,
+    linkedinProfile,
+  ] = User((store) => [
+    store.updatePhoneNumber,
+    store.updateUserDetails,
+    store.userId,
+    store.updateUserId,
+    store.userAddress,
+    store.job,
+    store.comapnyWebsite,
+    store.linkedinProfile,
+  ]);
+  const [
+    company,
+    bussinessType,
+    companySize,
+    sellingChannel,
+    annualValue,
+    suppliers,
+    marketImport,
+    marketSell,
+    purchasingRole,
+    panCardNo,
+    gstNo,
+    companyUpdate,
+  ] = Company((store) => [
+    store.company,
+    store.bussinessType,
+    store.companySize,
+    store.sellingChannel,
+    store.annualValue,
+    store.suppliers,
+    store.marketImport,
+    store.marketSell,
+    store.purchasingRole,
+    store.panCardNo,
+    store.gstNo,
+    store.companyUpdate,
+  ]);
 
-  const [profileUser, setProfileUser] = useState({
-  
-  })
+  const [showFilter, setShowFilter] = useState(false);
+  const [sellerCategory] = Seller((store)=>[store.sellerCategory])
+
+  const onClose = () => {
+    setShowFilter(false);
+  };
+  const showDrawer = () => {
+    setShowFilter(!showFilter);
+  };
+
+  const [profileUser, setProfileUser] = useState({});
 
   const getUser = async (id) => {
     try {
@@ -32,8 +89,8 @@ const Home = ({ user, phoneNumber }) => {
       if (userDoc.exists()) {
         const userData = userDoc.data();
         setProfileUser(userData);
-        updateUserDetails(userData)
-        updatePhoneNumber(userData.phone_number)
+        updateUserDetails(userData);
+        updatePhoneNumber(userData.phone_number);
         console.log(userData, "rohit siva sai");
         return true;
       } else {
@@ -50,11 +107,28 @@ const Home = ({ user, phoneNumber }) => {
     try {
       if (!value) {
         await setDoc(doc(db, "users", id), {
-          username: {firstName: "reddy",lastName: "rohit"},
+          username: { firstName: "first", lastName: "Last" },
           email: "example@gmail.com",
           phone_number: user?.phoneNumber,
+          job: job,
+          address: userAddress,
+          companyWebsite: companyWebsite,
+          linkedinProfile: linkedinProfile,
+          company,
+          bussinessType,
+          companySize,
+          sellingChannel,
+          annualValue,
+          suppliers,
+          marketImport,
+          marketSell,
+          purchasingRole,
+          panCardNo,
+          gstNo,
+          companyUpdate,
+          sellerCategory
         });
-        await getUser(id)
+        await getUser(id);
       } else {
         // getUser(currentUser.id);
         return;
@@ -92,29 +166,44 @@ const Home = ({ user, phoneNumber }) => {
     try {
       if (localStorage.getItem("userDetails")) {
         const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+        console.log("usredd", userDetails);
+
         const id = userDetails.uid;
-        updateUserId(id)
+
+        updateUserId(id);
         submitNewUser(id);
+
         // getCurrentUser(profileUser)
 
         // console.log(userDetails.uid);
+      } else {
+        router.push("/");
       }
     } catch (error) {
       console.log(error.message);
     }
-    if (!user) {
-      // router.push("/");
-    }
   }, [router]);
   return (
-    <div className="h-[640px] overflow-hidden">
+    <div className="md:h-[640px]  overflow-hidden">
       <div className="flex">
-        <Sidebar />
-        <div className="h-[640px] bg-gray-100  px-6 flex-1 pb-8  overflow-y-scroll ">
-          <div className="flex flex-col space-y-8">
-            <UserDetails profileUser={profileUser} getUser={getUser} />
-            <ComapnyDetails profileUser={profileUser} getUser={getUser} />
-          </div>
+        <div className=" hidden md:block w-1/6">
+          {/* <Sidebar /> */}
+          <SimpleSideBar />
+        </div>
+
+        <Drawer
+          placement={"left"}
+          width={300}
+          height={825}
+          className=" md:hidden block  "
+          open={showFilter}
+          onClose={onClose}
+        >
+          <SimpleSideBar />
+        </Drawer>
+
+        <div className="md:h-[640px] bg-gray-100 px-4  md:px-6 flex-1 pb-8  overflow-y-scroll ">
+          
         </div>
       </div>
     </div>

@@ -80,7 +80,7 @@ const Profile = ({
         console.log("Sign-out successful.");
         localStorage.removeItem("userDetails");
         handleUser(null)
-        setProfileUser({ username: "", email: "", phone_number: "", cart: [] });
+        setProfileUser({ });
         router.push("/");
         router.reload();
       })
