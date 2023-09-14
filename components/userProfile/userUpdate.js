@@ -45,7 +45,7 @@ const UserUpdate = ({ getUser }) => {
       username,
       address,
       job,
-      comapnyWebsite,
+      companyWebsite: comapnyWebsite,
       linkedinProfile,
       email,
     });

@@ -559,6 +559,10 @@ export default function App({ Component, pageProps }) {
   const changeShowLogin = (value) => {
     setShowLogin(value);
   }
+  const [sellerCategory,setSellerCategory] = useState("")
+  const updateSellerCategory = (category)=>{
+     setSellerCategory(category)
+  }
 
   return (
     <>
@@ -605,6 +609,8 @@ export default function App({ Component, pageProps }) {
         updateCurrentUser={updateCurrentUser}
         showLogin={showLogin}
         changeShowLogin={changeShowLogin}
+        sellerCategory={sellerCategory}
+        updateSellerCategory={updateSellerCategory}
       />
       {/* <Footer /> */}
     </>

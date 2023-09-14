@@ -21,7 +21,7 @@ import { Drawer } from "antd";
 import SimpleSideBar from "@/components/myRfq/simpleSideBar";
 import { Seller } from "@/useStore/seller";
 
-const Home = ({ user, phoneNumber }) => {
+const Home = ({ user, phoneNumber,updateSellerCategory }) => {
   const [
     updatePhoneNumber,
     updateUserDetails,
@@ -88,9 +88,12 @@ const Home = ({ user, phoneNumber }) => {
 
       if (userDoc.exists()) {
         const userData = userDoc.data();
-        setProfileUser(userData);
-        updateUserDetails(userData);
+        setProfileUser(userData)
+        updateUserDetails(userData)
+        
         updatePhoneNumber(userData.phone_number);
+        localStorage.setItem("sellerCategory",JSON.stringify(userData?.sellerCategory))
+        updateSellerCategory(userData?.sellerCategory)
         console.log(userData, "rohit siva sai");
         return true;
       } else {

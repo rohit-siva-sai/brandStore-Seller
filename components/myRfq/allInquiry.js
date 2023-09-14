@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 import { AiOutlineStar } from "react-icons/ai";
 
-const AllInquiry = ({ rfqData }) => {
+const AllInquiry = ({ rfqData,seller }) => {
   const [userDetails] = User((store)=>[store.userDetails])
   return (
     <div className="bg-gray-100 flex-1 px-2 md:px-6 md:h-[640px] pb-8  overflow-y-scroll  ">
@@ -35,7 +35,7 @@ const AllInquiry = ({ rfqData }) => {
               </div>
             </div>
             <div>
-              <p className="font-semibold text-base text-gray-700">Category: {userDetails.sellerCategory} </p>
+              <p className="font-semibold text-base text-gray-700">Category: {seller} </p>
             </div>
           </div>
         </div>
@@ -70,7 +70,7 @@ const AllInquiry = ({ rfqData }) => {
         <div className="flex flex-col space-y-0">
           {rfqData.map((item) => {
             return (
-              <Link passHref={true} href={`/myRfq/rfqList/${item.id}`}>
+              <Link passHref={true} href={`/myRfq/inquiryList/${item.id}`}>
                 <div className="md:grid-cols-12 grid-cols-5 py-3 border px-2 md:px-8 hover:bg-gray-50  grid place-items-start ">
                   <div className="md:col-span-1 md:flex hidden  space-x-4 items-center">
                     <input type="checkbox" name="" id="" />

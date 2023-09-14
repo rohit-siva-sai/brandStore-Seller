@@ -109,7 +109,7 @@ const UserDetails = ({ profileUser, getUser }) => {
               name="companyWebsite"
                 Icon={FiLink}
                 title={"Company Website"}
-                value={profileUser?.comapnyWebsite}
+                value={profileUser?.companyWebsite}
               />
               <DetailCard
               name="linkedinProfile"

@@ -12,6 +12,7 @@ import { useState } from "react";
 const InquiryList = ({ user }) => {
   const [showFilter, setShowFilter] = useState(false)
   const [userDetails] = User((store)=>[store.userDetails])
+  const [seller,setSeller] = useState("")
    
 console.log('userdetails',userDetails);
 
@@ -23,15 +24,16 @@ console.log('userdetails',userDetails);
   };
   const rfqCollection = collection(db, "rfqs");
   const [rfqData, setRfqData] = useState([]);
-  const getRfq = async (id) => {
+  const getRfq = async (sellerCategory) => {
     try {
       const data = await getDocs(rfqCollection);
       const filteredData = data.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
       }));
+      setSeller(sellerCategory)
       const rfq = filteredData.filter(
-        (item) => item.productCategory[1] == userDetails.sellerCategory
+        (item) => item.productCategory[1] == sellerCategory
       );
       setRfqData(rfq);
       console.log("ssassa", rfq);
@@ -40,7 +42,10 @@ console.log('userdetails',userDetails);
     }
   };
   useEffect(() => {
-    getRfq();
+    const sellerCategory = JSON.parse(localStorage.getItem("sellerCategory"))
+    console.log('seller',sellerCategory);
+    
+    getRfq(sellerCategory);
   }, [user]);
   return (
     <div className="h-[640px] overflow-hidden">
@@ -60,7 +65,7 @@ console.log('userdetails',userDetails);
         >
           <SimpleSideBar />
         </Drawer>
-        <AllInquiry rfqData={rfqData} />
+        <AllInquiry rfqData={rfqData} seller={seller} />
       </div>
     </div>
   );

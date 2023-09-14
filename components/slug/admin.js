@@ -1,16 +1,76 @@
-import React from 'react'
+import React from "react";
 
-const Admin = () => {
+
+import Order from "./adminDetails/order";
+import UnitPrice from "./adminDetails/unitPrice";
+import ValidTo from "../rfq/productInfo/validTo";
+import Destination from "./adminDetails/message/destination";
+import Require from "./adminDetails/message/require";
+import { Seller } from "@/useStore/seller";
+import { collection, doc, setDoc } from "firebase/firestore";
+import { db } from "@/config/firebase";
+import { Progress } from "antd";
+
+const Admin = ({id}) => {
+  const [
+    
+    order,
+    unitPrice,
+    requirements,
+   progress
+  ] = Seller((store) => [
+   
+    store.order,
+    store.unitPrice,
+    store.requirements,
+    store.progress,
+    store.scoreInquiry,
+  ]);
+  const quotationsCollection = collection(db, "quotations");
+
+
+  const submitNewQuotation = async () => {
+    try {
+      await setDoc(doc(quotationsCollection), {
+        
+        order: order,
+        unitPrice: unitPrice,
+        requirements: requirements,
+       
+        quotationScore: progress,
+        rfqId: id
+      })
+      
+    } catch (err) {
+      console.log(err,"rohitk skvsman ");
+    }
+  };
+  console.log('rohit',order,unitPrice,requirements,progress);
+  const twoColors = { '0%': '#108ee9', '100%': '#87d068' };
+  
   return (
-    <div className='w-3/5 bg-white rounded-xl h-[800px] py-4'>
-      <div className=''>
-        <p className='font-bold text-xl px-6 text-gray-800 mb-4'>Quotes Received (0 of Maximun 20)</p>
-        <div className="px-2 py-1 w-fit mx-6 hover:border-rose-600 border text-gray-600 hover:text-rose-600 rounded cursor-pointer">
-            Compare Quotations
+    <div className="w-3/5 px-8 bg-white rounded-xl h-[900px] py-4">
+      {/* <p className="font-bold text-xl px-6 text-gray-800 mb-4">
+        Quotes Received (0 of Maximun 20)
+      </p> */}
+      <Progress percent={progress} status="active" strokeColor={{ from: '#108ee9', to: '#87d068' }} />
+      <div className="flex flex-col space-y-4">
+        <Order/>
+        <UnitPrice/>
+        <ValidTo/>
+        <Require />
+        <div
+            onClick={() => {
+            submitNewQuotation()            
+            }}
+          
+            className="cursor-pointer mt-5 text-base w-fit font-semibold px-7 rounded-md text-white bg-gradient-to-l from-blue-400  to-blue-600 py-2"
+          >
+            Submit
           </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Admin
+export default Admin;
