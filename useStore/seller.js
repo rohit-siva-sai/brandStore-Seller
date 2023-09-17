@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 const seller = (set) => ({
-  progress: 0,
+  progress: 20,
   sellerCategory: null,
   openUserModel: false,
   requirements: {
@@ -13,7 +13,7 @@ const seller = (set) => ({
   },
   order: { orderQuantity: null, orderType: "Bags",estimatedQuantity: null },
   unitPrice: { unitType: "USD", units: null },
-  validTo: "",
+  quoteDate : {quotePostedDate: "",quoteExpireDate: "" },
   scoreInquiry: [
     {
       label: "Estmated Order Quantity",
@@ -56,7 +56,9 @@ const seller = (set) => ({
       score: false,
     },
   ],
+  validTo: "",
 
+  updateQuoteDate: async (value) => set((store) => ({ quoteDate: value })),
   updateIncreaseProgress: async (number) =>
     set((store) => ({
       progress: store.progress + 5 > 100 ? 100 : store.progress + number,
@@ -71,7 +73,8 @@ const seller = (set) => ({
     set((store) => ({ openUserModel: value })),
   updateOrder: async (value) => set((store) => ({ order: value })),
   updateUnitPrice: async (value) => set((store) => ({ unitPrice: value })),
-  updateValidTo: async (valid) => set((store) => ({ validTo: valid })),
+  updateProgress: async (value) => set((store) => ({ progress: 20 })),
+  // updateValidTo: async (valid) => set((store) => ({ validTo: valid })),
   updateRequirements: async (require) =>
     set((store) => ({ requirements: require })),
 });

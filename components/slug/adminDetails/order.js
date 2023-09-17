@@ -27,7 +27,7 @@ const Order = () => {
       <label className="leading-7 text-base font-semibold text-gray-800">
         Estimated Order Quantity<span className="text-red-600 text-lg">*</span>
       </label>
-      <div className="flex space-x-3">
+      <div className="flex md:flex-nowrap space-y-2 md:space-y-0 flex-wrap md:space-x-3">
       <Select
           showSearch
           className="w-44"

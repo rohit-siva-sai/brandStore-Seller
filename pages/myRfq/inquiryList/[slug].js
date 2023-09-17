@@ -38,8 +38,6 @@ const Post = () => {
     }
   };
 
-
-
   const SingleRfq = async () => {
     const data = await getRfq(router.query.slug);
     setRfqData({ ...data });
@@ -51,28 +49,29 @@ const Post = () => {
   }, [router]);
   return (
     <div className="flex md:h-[640px] overflow-y-hidden  ">
-     <div className=" hidden md:block w-1/6">
-          {/* <Sidebar /> */}
-          <SimpleSideBar />
-        </div>
+      <div className=" hidden md:block w-1/6">
+        {/* <Sidebar /> */}
+        <SimpleSideBar />
+      </div>
 
-        <Drawer
-          placement={"left"}
-          width={300}
-          height={825}
-          className=" md:hidden block  "
-          open={showFilter}
-          onClose={onClose}
-        >
-          <SimpleSideBar />
-        </Drawer>
+      <Drawer
+        placement={"left"}
+        width={300}
+        height={825}
+        className=" md:hidden block  "
+        open={showFilter}
+        onClose={onClose}
+      >
+        <SimpleSideBar />
+      </Drawer>
       <div className="bg-gray-100 flex-1 px-4 md:h-[640px] pb-8 overflow-y-scroll ">
-      <p className="font-light text-sm py-4">
-        RFQs  &nbsp;/&nbsp;  All &nbsp; /&nbsp;  <span className="font-normal">Quotes Received</span>
-      </p>
+        <p className="font-light text-sm py-4">
+          RFQs &nbsp;/&nbsp; All &nbsp; /&nbsp;{" "}
+          <span className="font-normal">Quotes Received</span>
+        </p>
         <div className="flex  flex-col-reverse md:flex-row space-y-reverse space-y-6  md:space-x-3  ">
-          <Admin id={router.query.slug} />
-          <RequestDetails rfqData={rfqData}  />
+          <Admin id={router.query.slug} rfqData={rfqData} />
+          <RequestDetails rfqData={rfqData} />
         </div>
       </div>
     </div>

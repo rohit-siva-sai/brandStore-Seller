@@ -45,10 +45,10 @@ console.log('userdetails',userDetails);
     const sellerCategory = JSON.parse(localStorage.getItem("sellerCategory"))
     console.log('seller',sellerCategory);
     
-    getRfq(sellerCategory);
+    getRfq(sellerCategory)
   }, [user]);
   return (
-    <div className="h-[640px] overflow-hidden">
+    <div className="md:h-[640px] md:overflow-hidden">
       <div className="flex">
         <div className=" hidden md:block w-1/6">
          

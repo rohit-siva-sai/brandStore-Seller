@@ -7,7 +7,7 @@ import { AiOutlineStar } from "react-icons/ai";
 const AllInquiry = ({ rfqData,seller }) => {
   const [userDetails] = User((store)=>[store.userDetails])
   return (
-    <div className="bg-gray-100 flex-1 px-2 md:px-6 md:h-[640px] pb-8  overflow-y-scroll  ">
+    <div className="bg-gray-100  flex-1 px-2 md:px-6 md:h-[640px] pb-8  overflow-y-scroll  ">
       <p className="font-light text-sm py-4">
         RFQs / <span className="font-normal">All</span>
       </p>
@@ -35,7 +35,7 @@ const AllInquiry = ({ rfqData,seller }) => {
               </div>
             </div>
             <div>
-              <p className="font-semibold text-base text-gray-700">Category: {seller} </p>
+              <p className="font-semibold text-sm md:text-base text-gray-700">Category: <span className="text-xs md:text-base">{seller}</span> </p>
             </div>
           </div>
         </div>
@@ -91,25 +91,25 @@ const AllInquiry = ({ rfqData,seller }) => {
                       </p>
                     </div>
                   </div>
-                  <div className="col-span-1 text-sm md:text-base md:col-span-2 text-gray-400 font-semibold">
-                    {item.validDate}654654
+                  <div className="col-span-1 text-xs md:text-base md:col-span-2 text-gray-400 font-semibold">
+                  {item.rfqDate?.rfqExpireDate}
                   </div>
-                  <div className="col-span-1 text-sm md:text-base md:col-span-2 text-gray-400 font-semibold">
-                    {item.validDate}654654
+                  <div className="col-span-1 text-xs md:text-base md:col-span-2 text-gray-400 font-semibold">
+                  {item.rfqDate?.rfqPostedDate}
                   </div>
-                  <div className="col-span-1 text-sm md:text-base md:col-span-2 text-gray-400 font-semibold">
+                  <div className="col-span-1 text-xs md:text-base md:col-span-2 text-gray-400 font-semibold">
                     <div className="flex flex-col text-sm md:text-base space-y-1">
                       <p>Quotes Recieved</p>
                       <div className="flex space-x-2 items-center">
                         <div className="flex-1 opacity-50">
                           <Progress
-                            percent={50}
+                            percent={item.quotesReceived?(item.quotesReceived/10)*100 : 0}
                             className="flex-1"
                             showInfo={false}
                             size={"small"}
                           />
                         </div>
-                        <p className="text-xs">0/20</p>
+                        <p className="text-xs">{item.quotesReceived}/10</p>
                       </div>
                     </div>
                   </div>

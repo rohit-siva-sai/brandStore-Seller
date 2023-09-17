@@ -34,7 +34,7 @@ const Require = () => {
         </div>
         {show && (
           <div
-            className={` mt-4 flex flex-col space-y-6 transition-all duration-500 w-10/12`}
+            className={` mt-4 flex flex-col space-y-6 transition-all duration-500  w-10/12`}
           >
             <Destination />
           </div>
