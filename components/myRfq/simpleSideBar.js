@@ -8,7 +8,7 @@ import { MdOutlineAccountCircle, MdOutlineEmail } from "react-icons/md";
 const options = [
   { label: "Home", value: "home", link: "/myRfq/home" },
   { label: "Inquiries", value: "inquiries", link: "/myRfq/inquiryList" },
-  { label: "Rfqs", value: "rfqs", link: "/myRfq/rfqList" },
+  // { label: "Rfqs", value: "rfqs", link: "/myRfq/rfqList" },
   { label: "Orders", value: "orders", link: "" },
   { label: "My Account", value: "account", link: "/myRfq/userProfile" },
   { label: "Settings", value: "settings", link: "" },

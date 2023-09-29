@@ -1,7 +1,10 @@
+import { Data } from "@/useStore/data";
 import { useStore } from "@/useStore/details";
 import { Seller } from "@/useStore/seller";
 import { Select } from "antd";
+import { useRouter } from "next/router";
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 
 const Destination = () => {
@@ -23,7 +26,14 @@ const Destination = () => {
   const [i3, setI3] = useState(1);
   const [i4, setI4] = useState(1);
 
+  const [singleQuote] = Data((store) => [store.singleQuote]);
+  const router = useRouter()
+
+
+  
+
   const [require, setRequire] = useState(requirements);
+
 
 
   return (
@@ -51,12 +61,12 @@ const Destination = () => {
               if (scoreRequire[0].score && i1 == 1) {
                 updateIncreaseProgress(10);
                 setI1(2);
-                console.log('as',i1);
+                // console.log('as',i1);
                 
               }
-              if (!scoreRequire[0].score) {
+              if (!scoreRequire[0].score && i1==2) {
                 updateDecreaseProgress(10);
-                console.log('asas',i1);
+                // console.log('asas',i1);
                 
                 setI1(1);
               }
@@ -86,7 +96,7 @@ const Destination = () => {
                 updateIncreaseProgress(10);
                 setI2(2);
               }
-              if (!scoreRequire[1].score) {
+              if (!scoreRequire[1].score && i2==2) {
                 updateDecreaseProgress(10);
                 setI2(1);
               }
@@ -148,7 +158,7 @@ const Destination = () => {
               updateIncreaseProgress(10);
               setI3(2);
             }
-            if (!scoreRequire[2].score) {
+            if (!scoreRequire[2].score && i3==2) {
               updateDecreaseProgress(10);
               setI3(1);
             }
@@ -213,7 +223,7 @@ const Destination = () => {
               updateIncreaseProgress(10);
               setI4(2);
             }
-            if (!scoreRequire[3].score) {
+            if (!scoreRequire[3].score && i4==2) {
               updateDecreaseProgress(10);
               setI4(1);
             }

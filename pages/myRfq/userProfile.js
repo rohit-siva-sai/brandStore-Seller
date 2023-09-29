@@ -31,6 +31,7 @@ const Home = ({ user, phoneNumber }) => {
     job,
     companyWebsite,
     linkedinProfile,
+    userDetails
   ] = User((store) => [
     store.updatePhoneNumber,
     store.updateUserDetails,
@@ -40,6 +41,7 @@ const Home = ({ user, phoneNumber }) => {
     store.job,
     store.comapnyWebsite,
     store.linkedinProfile,
+    store.userDetails
   ]);
   const [
     company,
@@ -78,68 +80,68 @@ const Home = ({ user, phoneNumber }) => {
     setShowFilter(!showFilter);
   };
 
-  const [profileUser, setProfileUser] = useState({});
+  // const [profileUser, setProfileUser] = useState(userDetails);
   const [sellerCategory] = Seller((store)=>[store.sellerCategory])
 
 
-  const getUser = async (id) => {
-    try {
-      const userRef = doc(db, "users", id); // 'people' is the collection name
-      const userDoc = await getDoc(userRef);
+  // const getUser = async (id) => {
+  //   try {
+  //     const userRef = doc(db, "users", id); // 'people' is the collection name
+  //     const userDoc = await getDoc(userRef);
 
-      if (userDoc.exists()) {
-        const userData = userDoc.data();
-        setProfileUser(userData);
-        updateUserDetails(userData);
-        updatePhoneNumber(userData.phone_number);
-        console.log(userData, "rohit siva sai");
-        return true;
-      } else {
-        console.log("No such document!");
-        return false;
-      }
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
-  const submitNewUser = async (id) => {
-    const value = await getUser(id);
-    console.log("value", value);
-    try {
-      if (!value) {
-        await setDoc(doc(db, "users", id), {
-          username: { firstName: "first", lastName: "Last" },
-          email: "example@gmail.com",
-          phone_number: user?.phoneNumber,
-          job: job,
-          address: userAddress,
-          companyWebsite: companyWebsite,
-          linkedinProfile: linkedinProfile,
-          company,
-          bussinessType,
-          companySize,
-          sellingChannel,
-          annualValue,
-          suppliers,
-          marketImport,
-          marketSell,
-          purchasingRole,
-          panCardNo,
-          gstNo,
-          companyUpdate,
-          sellerCategory
-        });
-        await getUser(id);
-      } else {
-        // getUser(currentUser.id);
-        return;
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  //     if (userDoc.exists()) {
+  //       const userData = userDoc.data();
+  //       setProfileUser(userData);
+  //       updateUserDetails(userData);
+  //       updatePhoneNumber(userData.phone_number);
+  //       console.log(userData, "rohit siva sai");
+  //       return true;
+  //     } else {
+  //       console.log("No such document!");
+  //       return false;
+  //     }
+  //   } catch (err) {
+  //     console.log(err.message);
+  //   }
+  // };
+  // const submitNewUser = async (id) => {
+  //   const value = await getUser(id);
+  //   console.log("value", value);
+  //   try {
+  //     if (!value) {
+  //       await setDoc(doc(db, "users", id), {
+  //         username: { firstName: "first", lastName: "Last" },
+  //         email: "example@gmail.com",
+  //         phone_number: user?.phoneNumber,
+  //         job: job,
+  //         address: userAddress,
+  //         companyWebsite: companyWebsite,
+  //         linkedinProfile: linkedinProfile,
+  //         company,
+  //         bussinessType,
+  //         companySize,
+  //         sellingChannel,
+  //         annualValue,
+  //         suppliers,
+  //         marketImport,
+  //         marketSell,
+  //         purchasingRole,
+  //         panCardNo,
+  //         gstNo,
+  //         companyUpdate,
+  //         sellerCategory
+  //       });
+  //       await getUser(id);
+  //     } else {
+  //       // getUser(currentUser.id);
+  //       return;
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  const logOut = async () => {
+const logOut = async () => {
     signOut(getAuth())
       .then(() => {
         console.log("Sign-out successful.");
@@ -167,12 +169,12 @@ const Home = ({ user, phoneNumber }) => {
     try {
       if (localStorage.getItem("userDetails")) {
         const userDetails = JSON.parse(localStorage.getItem("userDetails"));
-        console.log("usredd", userDetails);
+        // console.log("usredd", userDetails);
 
         const id = userDetails.uid;
 
-        updateUserId(id);
-        submitNewUser(id);
+        // updateUserId(id);
+        // submitNewUser(id);
 
         // getCurrentUser(profileUser)
 
@@ -205,8 +207,8 @@ const Home = ({ user, phoneNumber }) => {
 
         <div className="md:h-[640px] bg-gray-100 px-4  md:px-6 flex-1 pb-8  overflow-y-scroll ">
           <div className="flex flex-col space-y-8">
-            <UserDetails profileUser={profileUser} getUser={getUser} />
-            <ComapnyDetails profileUser={profileUser} getUser={getUser} />
+            <UserDetails  />
+            <ComapnyDetails  />
           </div>
         </div>
       </div>

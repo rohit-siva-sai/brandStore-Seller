@@ -9,15 +9,16 @@ import Linkedin from "./userUpdate/linkedin";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/config/firebase";
 import { Toaster, toast } from "react-hot-toast";
+import { SideBar } from "@/useStore/sideBar";
 
-const UserUpdate = ({ getUser }) => {
+const UserUpdate = ({  }) => {
   const [
     phoneNumber,
     userId,
     username,
     address,
     job,
-    comapnyWebsite,
+    companyWebsite,
     linkedinProfile,
     email,
     userUpdate,
@@ -28,24 +29,28 @@ const UserUpdate = ({ getUser }) => {
     store.username,
     store.userAddress,
     store.job,
-    store.comapnyWebsite,
+    store.companyWebsite,
     store.linkedinProfile,
     store.userEmail,
     store.userUpdate,
     store.updateOpenUserModel,
   ]);
+  const [updateUserChange] = SideBar((store) => [store.updateUserChange]);
+
   // console.log("usessssr", userId);
 
   // console.log("update", phoneNumber);
-  console.log("update", userUpdate);
+  // console.log("update", userUpdate);
   const updateUser = async (id) => {
     const userDoc = doc(db, "users", id);
+    console.log('address',address);
+    
 
     await updateDoc(userDoc, {
       username,
       address,
       job,
-      companyWebsite: comapnyWebsite,
+      companyWebsite: companyWebsite,
       linkedinProfile,
       email,
     });
@@ -58,8 +63,9 @@ const UserUpdate = ({ getUser }) => {
     //     color: "white",
     //   },
     // });
+    updateUserChange()
     updateOpenUserModel(false);
-    await getUser(id);
+    // await getUser(id);
   };
 
   return (

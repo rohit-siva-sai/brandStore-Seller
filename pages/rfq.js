@@ -64,7 +64,8 @@ const router = useRouter()
         requirements: requirements,
         email: email,
         rfqScore: progress,
-        user: user.uid
+        user: user.uid,
+        timestamp: new Date()
       })
       
     } catch (err) {

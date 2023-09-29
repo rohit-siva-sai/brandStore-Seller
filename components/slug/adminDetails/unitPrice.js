@@ -1,7 +1,9 @@
+import { Data } from "@/useStore/data";
 import { useStore } from "@/useStore/details";
 import { Seller } from "@/useStore/seller";
 import { Select } from "antd";
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 
 const UnitPrice = () => {
@@ -21,8 +23,12 @@ const UnitPrice = () => {
    
   ]);
   const [i, setI] = useState(1);
+  const [singleQuote] = Data((store) => [store.singleQuote]);
+
 
   const [unitChange, setUnitChange] = useState(unitPrice);
+
+
 
   return (
     <div className="flex flex-col space-y-2">
@@ -110,7 +116,7 @@ const UnitPrice = () => {
               updateIncreaseProgress(20);
               setI(2);
             }
-            if (!scoreProduct[6].score) {
+            if (!scoreProduct[6].score && i==2) {
               updateDecreaseProgress(20);
               setI(1);
             }

@@ -12,8 +12,9 @@ import { User } from "@/useStore/user";
 import { useEffect } from "react";
 import UserName from "./userUpdate/username";
 import PhotoCard from "./photoCard";
+import { SideBar } from "@/useStore/sideBar";
 
-const UserDetails = ({ profileUser, getUser }) => {
+const UserDetails = ({   }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [
     updateUserName,
@@ -25,6 +26,7 @@ const UserDetails = ({ profileUser, getUser }) => {
     updateUserUpdate,
     openUserModel,
     updateOpenUserModel,
+    userDetails
   ] = User((store) => [
     store.updateUserName,
     store.updateJob,
@@ -35,19 +37,20 @@ const UserDetails = ({ profileUser, getUser }) => {
     store.updateUserUpdate,
     store.openUserModel,
     store.updateOpenUserModel,
+    store.userDetails
   ]);
-  // console.log("userdeatils", profileUser);
+  // console.log("userdeatils", userDetails?);
+  const [userChange] = SideBar((store) => [store.userChange]);
   useEffect(() => {
-   if(profileUser)
-   {
-    updateUserName(profileUser.username);
-    updateJob(profileUser.job);
-    updateAddress(profileUser.address);
-    updateUserEmail(profileUser.email);
-    updateCompanyWebsite(profileUser.comapnyWebsite);
-    updateLinkedinProfile(profileUser.linkedinProfile);
-   }
-  }, [profileUser]);
+    if (userDetails) {
+      updateUserName(userDetails?.username);
+      updateJob(userDetails?.job);
+      updateAddress(userDetails?.address);
+      updateUserEmail(userDetails?.email);
+      updateCompanyWebsite(userDetails?.companyWebsite);
+      updateLinkedinProfile(userDetails?.linkedinProfile);
+    }
+  }, [userChange]);
 
   return (
     <div className="  ">
@@ -77,45 +80,45 @@ const UserDetails = ({ profileUser, getUser }) => {
             onCancel={() => updateOpenUserModel(false)}
             width={600}
           >
-            <UserUpdate getUser={getUser} />
+            <UserUpdate  />
           </Modal>
         </div>
         <div className="flex md:flex-row flex-col md:space-y-0 space-y-2 items-center justify-center py-8 border-t md:divide-y-0 divide-y md:divide-x">
           <div className="  md:w-1/4 ">
-            <PhotoCard profileUser={profileUser} />
+            <PhotoCard userDetails={userDetails} />
           </div>
 
           <div className="md:w-3/4 pl-6 pt-4 md:pt-0  md:pl-24">
             <div className="flex flex-col  space-y-3">
               <DetailCard
-              name="email"
+                name="email"
                 Icon={MdMailOutline}
                 title={"Email"}
-                value={profileUser.email}
+                value={userDetails?.email}
               />
               <DetailCard
-              name="phoneNumber"
+                name="phoneNumber"
                 Icon={FiPhone}
                 title={"Phone"}
-                value={profileUser.phone_number}
+                value={userDetails?.phone_number}
               />
               <DetailCard
-              name="address"
+                name="address"
                 Icon={AiOutlineHome}
                 title={"Office Address"}
-                value={profileUser.address?.country}
+                value={userDetails?.address?.country}
               />
               <DetailCard
-              name="companyWebsite"
+                name="companyWebsite"
                 Icon={FiLink}
                 title={"Company Website"}
-                value={profileUser?.companyWebsite}
+                value={userDetails?.companyWebsite}
               />
               <DetailCard
-              name="linkedinProfile"
+                name="linkedinProfile"
                 Icon={AiOutlineLinkedin}
                 title={"Linkedin Profile"}
-                value={profileUser.linkedinProfile}
+                value={userDetails?.linkedinProfile}
               />
               <p></p>
               <p></p>

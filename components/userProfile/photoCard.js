@@ -2,12 +2,13 @@ import React from "react";
 import { User } from "@/useStore/user";
 import { HiPencil } from "react-icons/hi";
 
-const PhotoCard = ({ profileUser }) => {
-  const [updateUserUpdate, openUserModel, updateOpenUserModel] = User(
+const PhotoCard = ({  }) => {
+  const [updateUserUpdate, openUserModel, updateOpenUserModel,userDetails] = User(
     (store) => [
       store.updateUserUpdate,
       store.openUserModel,
       store.updateOpenUserModel,
+      store.userDetails
     ]
   );
   return (
@@ -18,7 +19,7 @@ const PhotoCard = ({ profileUser }) => {
       <div className="flex items-center space-y-2 flex-col">
         <div className="flex  space-x-3 items-center cursor-pointer group">
           <p className="font-semibold text-lg text-gray-700">
-            {profileUser.username?.firstName} {profileUser.username?.lastName}
+            {userDetails?.username?.firstName} {userDetails?.username?.lastName}
           </p>
           <HiPencil
             size={20}
@@ -31,7 +32,7 @@ const PhotoCard = ({ profileUser }) => {
         </div>
         <div className="flex space-x-3 items-center cursor-pointer group">
           <p className="font-normal text-base text-gray-600">
-            {profileUser.job?.jobTitle}
+            {userDetails?.job?.jobTitle}
           </p>
           <HiPencil
             size={20}

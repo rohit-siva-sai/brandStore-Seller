@@ -27,6 +27,7 @@ import { User } from "@/useStore/user";
 import Sellercategory from "./sellerCategory";
 import Category from "../rfq/productInfo/category";
 import { Seller } from "@/useStore/seller";
+import { SideBar } from "@/useStore/sideBar";
 
 const Login = ({
   changeShowLogin,
@@ -36,6 +37,7 @@ const Login = ({
   getPhoneNumber,
 }) => {
   const [updateUserId] = User((store) => [store.updateUserId]);
+  const [updateUserChange] = SideBar((store) => [store.updateUserChange]);
   const [sellerCategory] = Seller((store)=>[store.sellerCategory])
 
   const [phoneNumber, setPhoneNumber] = useState(false);
@@ -142,12 +144,13 @@ const Login = ({
       .then(async (res) => {
         console.log("sdcd", res);
         handleUser(res.user)
-        updateUserId(res.user.uid);
+        updateUserId(res.user.uid)
         console.log("uxeuyvwedwveug", user);
 
         localStorage.setItem("userDetails", JSON.stringify(res.user));
         // const id = res.user.uid;
         changeShowLogin(false);
+        updateUserChange()
         router.push("/myRfq/home");
       })
       .catch((err) => {

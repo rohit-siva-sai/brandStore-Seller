@@ -8,9 +8,9 @@ const Address = () => {
     store.userAddress,
     store.updateAddress,
   ]);
-  console.log('address',userAddress);
+  // console.log('address',userAddress);
   
-  const [add, setAdd] = useState(userAddress);
+  const [add, setAdd] = useState(userAddress)
   return (
     <div className="felx flex-col space-y-2">
       <div className="flex flex-col space-y-1 ">
@@ -25,7 +25,7 @@ const Address = () => {
             setAdd((prev) => ({ ...prev, bussinessAddress: e.target.value }));
           }}
           onBlur={() => {
-            updateAddress(add);
+            updateAddress(add)
           }}
           name="firstName"
           placeholder="Compant Name,floor"

@@ -5,8 +5,11 @@ import { HiPencil } from "react-icons/hi";
 import CompanyCard from "./CompanyCard";
 import CompanyUpdate from "./companyUpdate";
 import { Company } from "@/useStore/company";
+import { SideBar } from "@/useStore/sideBar";
+import { User } from "@/useStore/user";
+import { Seller } from "@/useStore/seller";
 
-const ComapnyDetails = ({ profileUser, getUser }) => {
+const ComapnyDetails = ({}) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [
     updateCompany,
@@ -39,19 +42,28 @@ const ComapnyDetails = ({ profileUser, getUser }) => {
     store.updateCompanyUpdate,
     store.updateOpenCompanyModel,
   ]);
+
+  const [userDetails] = User((store) => [store.userDetails]);
+  const [userChange] = SideBar((store) => [store.userChange]);
+  const [updateSellerCategory] = Seller((store) => [store.updateSellerCategory]);
   useEffect(() => {
-    updateCompany(profileUser.company);
-    updateBussinessType(profileUser.bussinessType);
-    updateCompanySize(profileUser.companySize);
-    updateSellingChannel(profileUser.sellingChannel);
-    updateAnnualValue(profileUser.annualValue);
-    updateSuppliers(profileUser.suppliers);
-    updateMarketImport(profileUser.marketImport);
-    updateMarketSell(profileUser.marketSell);
-    updatePurchasingRole(profileUser.purchasingRole);
-    updatePanCardNo(profileUser.panCardNo);
-    updateGstNo(profileUser.gstNo);
-  }, [profileUser]);
+    // console.log('hiiiiiiiiii');
+
+    if (userDetails) {
+      updateCompany(userDetails?.company);
+      updateBussinessType(userDetails?.bussinessType);
+      updateCompanySize(userDetails?.companySize);
+      updateSellingChannel(userDetails?.sellingChannel);
+      updateAnnualValue(userDetails?.annualValue);
+      updateSuppliers(userDetails?.suppliers);
+      updateMarketImport(userDetails?.marketImport);
+      updateMarketSell(userDetails?.marketSell);
+      updatePurchasingRole(userDetails?.purchasingRole);
+      updatePanCardNo(userDetails?.panCardNo);
+      updateGstNo(userDetails?.gstNo);
+      updateSellerCategory(userDetails?.sellerCategory);
+    }
+  }, [userChange]);
 
   return (
     <div className="bg-white rounded-lg pb-8  ">
@@ -59,7 +71,7 @@ const ComapnyDetails = ({ profileUser, getUser }) => {
         <p className="font-medium text-xl text-gray-800">Comapny Info</p>
         <div
           onClick={() => {
-            updateCompanyUpdate("all")
+            updateCompanyUpdate("all");
             updateOpenCompanyModel(true);
           }}
           className="cursor-pointer"
@@ -76,14 +88,14 @@ const ComapnyDetails = ({ profileUser, getUser }) => {
           onCancel={() => updateOpenCompanyModel(false)}
           width={600}
         >
-          <CompanyUpdate getUser={getUser} />
+          <CompanyUpdate />
         </Modal>
       </div>
       <div className="border-t px-6">
         <div className="flex space-x-3 items-center cursor-pointer group">
           <p className="py-3 font-semibold text-base">
-            {profileUser.company?.companyName} which is established in{" "}
-            {profileUser.company?.year}
+            {userDetails?.company?.companyName} which is established in{" "}
+            {userDetails?.company?.year}
           </p>
           <HiPencil
             size={22}
@@ -96,47 +108,55 @@ const ComapnyDetails = ({ profileUser, getUser }) => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2">
           <CompanyCard
-          name="bussinessTupe"
+            name="bussinessTupe"
             title={"Bussiness Type"}
-            value={profileUser.bussinessType}
+            value={userDetails?.bussinessType}
           />
-          <CompanyCard name="companySize" title={"Company Size"} value={profileUser.companySize} />
           <CompanyCard
-          name="marketImport"
+            name="companySize"
+            title={"Company Size"}
+            value={userDetails?.companySize}
+          />
+          <CompanyCard
+            name="marketImport"
             title={"Markets you import from"}
-            value={profileUser.marketImport}
+            value={userDetails?.marketImport}
           />
           <CompanyCard
-          name="marketSell"
+            name="marketSell"
             title={"Markets you sell to"}
-            value={profileUser.marketSell}
+            value={userDetails?.marketSell}
           />
           <CompanyCard
-          name="sellingChannel"
+            name="sellingChannel"
             title={"Your selling channel"}
-            value={profileUser.sellingChannel}
+            value={userDetails?.sellingChannel}
           />
           <CompanyCard
-          name="annualValue"
+            name="annualValue"
             title={"Annual Sourcing Value (Rupee)"}
-            value={profileUser.annualValue}
+            value={userDetails?.annualValue}
           />
           <CompanyCard
-          name="suppliers"
+            name="suppliers"
             title={"Types of suppliers you are looking for"}
-            value={profileUser.suppliers}
+            value={userDetails?.sellerCategory}
           />
           <CompanyCard
-          name="purchasingRole"
+            name="purchasingRole"
             title={"Your Purchasing Decision Role"}
-            value={profileUser.purchasingRole}
+            value={userDetails?.purchasingRole}
           />
           <CompanyCard
-          name="panCardNo"
+            name="panCardNo"
             title={"Pan Card Number"}
-            value={profileUser.panCardNo}
+            value={userDetails?.panCardNo}
           />
-          <CompanyCard name="gstNo" title={"GST Number"} value={profileUser.gstNo} />
+          <CompanyCard
+            name="gstNo"
+            title={"GST Number"}
+            value={userDetails?.gstNo}
+          />
         </div>
       </div>
     </div>

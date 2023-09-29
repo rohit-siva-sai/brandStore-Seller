@@ -5,13 +5,21 @@ const seller = (set) => ({
   progress: 20,
   sellerCategory: null,
   openUserModel: false,
+  initialRequirements: {
+    destinationPort: "",
+    shipmentTerms: "",
+    paymentMethod: "",
+    message: "",
+  },
   requirements: {
     destinationPort: "",
     shipmentTerms: "",
     paymentMethod: "",
     message: "",
   },
+  initialOrder: { orderQuantity: null, orderType: "Bags",estimatedQuantity: null },
   order: { orderQuantity: null, orderType: "Bags",estimatedQuantity: null },
+  initialUnitPrice: { unitType: "USD", units: null },
   unitPrice: { unitType: "USD", units: null },
   quoteDate : {quotePostedDate: "",quoteExpireDate: "" },
   scoreInquiry: [
@@ -73,10 +81,15 @@ const seller = (set) => ({
     set((store) => ({ openUserModel: value })),
   updateOrder: async (value) => set((store) => ({ order: value })),
   updateUnitPrice: async (value) => set((store) => ({ unitPrice: value })),
-  updateProgress: async (value) => set((store) => ({ progress: 20 })),
+  updateProgress: async (value) => set((store) => ({ progress: value })),
   // updateValidTo: async (valid) => set((store) => ({ validTo: valid })),
   updateRequirements: async (require) =>
     set((store) => ({ requirements: require })),
+  updateInitialOrder: async (value) => set((store) => ({ order: store.initialOrder })),
+  updateInitailUnitPrice: async (value) => set((store) => ({ unitPrice: store.initialUnitPrice })),
+  
+  updateInitialRequirements: async (require) =>
+    set((store) => ({ requirements: store.initialRequirements })),
 });
 
 export const Seller = create(seller, { name: "seller" });

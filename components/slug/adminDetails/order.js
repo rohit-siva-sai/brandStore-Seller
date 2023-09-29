@@ -1,7 +1,12 @@
 // import { useStore } from "@/useStore/details";
+import { Data } from "@/useStore/data";
 import { Seller } from "@/useStore/seller";
+import { SideBar } from "@/useStore/sideBar";
 import { Select } from "antd";
 import React, { useState } from "react";
+import { useLayoutEffect } from "react";
+import { useMemo } from "react";
+import { useEffect } from "react";
 
 const Order = () => {
   const [
@@ -10,6 +15,7 @@ const Order = () => {
     updateDecreaseProgress,
     order,
     scoreProduct,
+    progress
   ] = Seller((store) => [
     store.updateOrder,
     store.updateIncreaseProgress,
@@ -17,10 +23,16 @@ const Order = () => {
 
     store.order,
     store.scoreInquiry,
+    store.progress
   ]);
+  const [newQuote] = SideBar((store) => [store.newQuote]);
   const [i, setI] = useState(1);
+  const [singleQuote] = Data((store) => [store.singleQuote]);
+ 
 
-  const [orderQty, setOrderQty] = useState(order);
+  const [orderQty, setOrderQty] = useState(order)
+ 
+
 
   return (
     <div className="flex flex-col space-y-2">
@@ -71,6 +83,8 @@ const Order = () => {
             setOrderQty((prev) => ({ ...prev, orderQuantity: e.target.value }));
           }}
           onBlur={() => {
+            // console.log('rohit');
+            
             updateOrder(orderQty);
             orderQty.orderQuantity != 0
               ? (scoreProduct[5].score = true)
@@ -79,7 +93,7 @@ const Order = () => {
               updateIncreaseProgress(20);
               setI(2);
             }
-            if (!scoreProduct[5].score) {
+            if (!scoreProduct[5].score && i==2) {
               updateDecreaseProgress(20);
               setI(1);
             }

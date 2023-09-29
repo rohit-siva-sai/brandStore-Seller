@@ -22,7 +22,7 @@ const Navbar = ({
   const [searchValue, setSearchValue] = useState("");
   const [showSideCart, setShowSidecart] = useState(false);
   const router = useRouter()
-  const [username] = User((store)=>[store.username])
+  const [userDetails] = User((store)=>[store.userDetails])
   const [updateLinkActive] = SideBar((store)=>[store.updateLinkActive])
   // console.log('sdd',username);
   
@@ -109,12 +109,12 @@ const Navbar = ({
                   updateLinkActive("home")
                   user && router.push("/myRfq/home");
                 }}
-                className="flex items-center md:px-8 rounded-md py-2 px-2 cursor-pointer hover:bg-blue-500 bg-blue-600  space-x-2"
+                className="flex   overflow-x-hidden items-center md:px-8 text-center rounded-md py-2 px-2 cursor-pointer hover:bg-blue-500 bg-blue-600  space-x-2"
               >
-                <FaRegUserCircle className="text-white text-2xl " />
-                {user ? (
+                <FaRegUserCircle className="text-white " size={20} />
+                {user ? ( 
                   <p className="text-white font-semibold md:block hidden ">
-                    Welcome{username?.firstName.length > 2 && <span>,{username?.firstName}</span> }
+                    Welcome{userDetails?.username?.firstName.length > 2 && <span>,{userDetails?.username?.firstName}</span> }
                   </p>
                 ) : (
                   <p className="text-white font-semibold md:block hidden ">

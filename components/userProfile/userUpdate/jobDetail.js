@@ -64,7 +64,7 @@ const JobDetail = () => {
         </label>
         <input
           type="text"
-          value={desc.jobTitle}
+          value={desc?.jobTitle}
           id="productName"
           onChange={(e) => {
             setDesc((prev) => ({ ...prev, jobTitle: e.target.value }));
@@ -84,7 +84,7 @@ const JobDetail = () => {
           </label>
           <Select
             // defaultValue="Bussiness Service"
-            value={desc.jobCategory}
+            value={desc?.jobCategory}
             placeholder="Select One"
             className="w-full md:w-full text-sm font-semibold"
             onChange={(value) => {
@@ -92,7 +92,7 @@ const JobDetail = () => {
             }}
             onBlur={() => {
               updateJob(desc)
-              showJobLevel(desc.jobCategory)
+              showJobLevel(desc?.jobCategory)
             }}
             options={[
               {
@@ -107,14 +107,14 @@ const JobDetail = () => {
             ]}
           />
         </div>
-        {desc.jobCategory && <div className="flex flex-col space-y-1 ">
+        {desc?.jobCategory && <div className="flex flex-col space-y-1 ">
           <label className="leading-7 text-sm font-semibold text-gray-800">
             Last Name<span className="text-red-600 text-lg">*</span>
           </label>
           <Select
             // defaultValue="Bussiness Service"
             placeholder="Select One"
-            value={desc.jobLevel}
+            value={desc?.jobLevel}
 
             className="w-full md:w-full text-sm font-semibold"
             onChange={(value) => {

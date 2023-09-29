@@ -2,9 +2,11 @@ import React from "react";
 import { useState } from "react";
 import { AiOutlineDown } from "react-icons/ai";
 import Destination from "./destination";
+import { Data } from "@/useStore/data";
 
 const Require = () => {
   const [show, setShow] = useState(false);
+
   return (
     <div className="pt-2">
       <div

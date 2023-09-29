@@ -81,80 +81,80 @@ const Home = ({ user, phoneNumber,updateSellerCategory }) => {
 
   const [profileUser, setProfileUser] = useState({});
 
-  const getUser = async (id) => {
-    try {
-      const userRef = doc(db, "users", id); // 'people' is the collection name
-      const userDoc = await getDoc(userRef);
+  // const getUser = async (id) => {
+  //   try {
+  //     const userRef = doc(db, "users", id); // 'people' is the collection name
+  //     const userDoc = await getDoc(userRef);
 
-      if (userDoc.exists()) {
-        const userData = userDoc.data();
-        setProfileUser(userData)
-        updateUserDetails(userData)
+  //     if (userDoc.exists()) {
+  //       const userData = userDoc.data();
+  //       setProfileUser(userData)
+  //       updateUserDetails(userData)
         
-        updatePhoneNumber(userData.phone_number);
-        localStorage.setItem("sellerCategory",JSON.stringify(userData?.sellerCategory))
-        updateSellerCategory(userData?.sellerCategory)
-        console.log(userData, "rohit siva sai");
-        return true;
-      } else {
-        console.log("No such document!");
-        return false;
-      }
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
-  const submitNewUser = async (id) => {
-    const value = await getUser(id);
-    console.log("value", value);
-    try {
-      if (!value) {
-        await setDoc(doc(db, "users", id), {
-          username: { firstName: "first", lastName: "Last" },
-          email: "example@gmail.com",
-          phone_number: user?.phoneNumber,
-          job: job,
-          address: userAddress,
-          companyWebsite: companyWebsite,
-          linkedinProfile: linkedinProfile,
-          company,
-          bussinessType,
-          companySize,
-          sellingChannel,
-          annualValue,
-          suppliers,
-          marketImport,
-          marketSell,
-          purchasingRole,
-          panCardNo,
-          gstNo,
-          companyUpdate,
-          sellerCategory
-        });
-        await getUser(id);
-      } else {
-        // getUser(currentUser.id);
-        return;
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  //       updatePhoneNumber(userData.phone_number);
+  //       localStorage.setItem("sellerCategory",JSON.stringify(userData?.sellerCategory))
+  //       updateSellerCategory(userData?.sellerCategory)
+  //       console.log(userData, "rohit siva sai");
+  //       return true;
+  //     } else {
+  //       console.log("No such document!");
+  //       return false;
+  //     }
+  //   } catch (err) {
+  //     console.log(err.message);
+  //   }
+  // };
+  // const submitNewUser = async (id) => {
+  //   const value = await getUser(id)
+  //   console.log("value", value);
+  //   try {
+  //     if (!value) {
+  //       await setDoc(doc(db, "users", id), {
+  //         username: { firstName: "first", lastName: "Last" },
+  //         email: "example@gmail.com",
+  //         phone_number: user?.phoneNumber,
+  //         job: job,
+  //         address: userAddress,
+  //         companyWebsite: companyWebsite,
+  //         linkedinProfile: linkedinProfile,
+  //         company,
+  //         bussinessType,
+  //         companySize,
+  //         sellingChannel,
+  //         annualValue,
+  //         suppliers,
+  //         marketImport,
+  //         marketSell,
+  //         purchasingRole,
+  //         panCardNo,
+  //         gstNo,
+  //         companyUpdate,
+  //         sellerCategory
+  //       });
+  //       await getUser(id)
+  //     } else {
+  //       // getUser(currentUser.id);
+  //       return;
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  const logOut = async () => {
-    signOut(getAuth())
-      .then(() => {
-        console.log("Sign-out successful.");
-        localStorage.removeItem("userDetails");
-        handleUser(null);
-        setProfileUser({ username: "", email: "", phone_number: "", cart: [] });
-        router.push("/");
-        router.reload();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // const logOut = async () => {
+  //   signOut(getAuth())
+  //     .then(() => {
+  //       console.log("Sign-out successful.");
+  //       localStorage.removeItem("userDetails");
+  //       handleUser(null);
+  //       setProfileUser({ username: "", email: "", phone_number: "", cart: [] });
+  //       router.push("/");
+  //       router.reload();
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   const updateProfileUser = async (id, updateName, updateEmail) => {
     const userDoc = doc(db, "users", id);
@@ -171,10 +171,8 @@ const Home = ({ user, phoneNumber,updateSellerCategory }) => {
         const userDetails = JSON.parse(localStorage.getItem("userDetails"));
         console.log("usredd", userDetails);
 
-        const id = userDetails.uid;
-
-        updateUserId(id);
-        submitNewUser(id);
+        // updateUserId(id);
+        // submitNewUser(id);
 
         // getCurrentUser(profileUser)
 
