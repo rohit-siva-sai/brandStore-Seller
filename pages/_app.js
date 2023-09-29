@@ -629,7 +629,7 @@ export default function App({ Component, pageProps }) {
   const [updatedRfqData, setUpdatedRfqData] = useState([]);
   const getRfq = async (id) => {
     try {
-      console.log('sller',sellerCategory);
+      // console.log('sller',sellerCategory);
       
       const data = await getDocs(rfqCollection);
       const filteredData = data.docs.map((doc) => ({
@@ -639,11 +639,10 @@ export default function App({ Component, pageProps }) {
       // const user = JSON.parse(localStorage.getItem("userDetails"));
       const rfq = filteredData.filter(
         (item) => item.productCategory[1] == sellerCategory
-      );
-      // .sort((a, b) => b.timestamp["seconds"] - a.timestamp["seconds"]);
+      ).sort((a, b) => a.timestamp && b.timestamp &&  b.timestamp["seconds"] - a.timestamp["seconds"]);
 
       setRfqData(rfq);
-      console.log("rfq0,rfq", rfq);
+      // console.log("rfq0,rfq", rfq);
 
       setUpdatedRfqData(rfq);
       setIsLoading(false);
@@ -676,11 +675,11 @@ export default function App({ Component, pageProps }) {
        
         updatePhoneNumber(userData.phone_number);
         // localStorage.setItem("sellerCategory",JSON.stringify(userData?.sellerCategory))
-        console.log(userData, "rohit siva sai");
+        // console.log(userData, "userdata");
       
         return true;
       } else {
-        console.log("No such document!");
+        // console.log("No such document!");
         return false;
       }
     } catch (err) {
@@ -741,7 +740,7 @@ export default function App({ Component, pageProps }) {
     } catch (error) {
       console.log(error.message);
     }
-  }, [userChange]);
+  }, [userChange])
 
   const filterRfqData = (id) => {
     if (id == 0) {
